@@ -1,23 +1,25 @@
 import SearchBarBox from "./searchBarBox";
-import {useRef, useState } from 'react';
+import {useRef, useState, useContext } from 'react';
+import { PlaylistContext } from "../UseContext/PlaylistContext";
+import PlaylistSideBar from "../playlistComponents/PlaylistSideBar";
 
 function SearchBar() {
   const inputRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const {isVisible, setIsVisible,playListData} = useContext(PlaylistContext)
 
-  const handleInputClick = (event) => {
+  const openSearchPlayList = (event) => {
     if (event.target === inputRef.current) {
       setIsVisible(!isVisible)
     }
   };
   return (
-    <div className="relative">
+    <div className="relative h-screen bg-[#2b2b2b]">
       <div className="relative">
         <input
           type="text"
           className="bg-primary  border border-lightgray rounded-lg mt-6 ml-8 h-8 w-60"
           ref={inputRef} 
-          onClick={handleInputClick}
+          onClick={openSearchPlayList}
         />
         <svg
           className="absolute bottom-1 left-10"
@@ -33,7 +35,9 @@ function SearchBar() {
           />
         </svg>
       </div>
-      <SearchBarBox isVisible={isVisible} setIsVisible={setIsVisible}/>
+      <SearchBarBox />
+      <PlaylistSideBar/>
+      {}
     </div>
   );
 }
