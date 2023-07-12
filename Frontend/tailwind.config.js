@@ -42,7 +42,8 @@ export default {
         '3xl': '0 35px 35px rgba(222, 222, 222, 0.25)'
       },
       fontFamily : {
-        roboto : ['Roboto', 'sans-serif']
+        roboto : ['Roboto', 'sans-serif'],
+        workSans : ['Work Sans', 'sans-serif']
       }
     },
     

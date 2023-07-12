@@ -1,7 +1,7 @@
 function Navbar() {
   return (
     <nav className="h-16 bg-primary border-b-whitegray border-b-2  flex justify-between items-center px-10">
-      <span className="font-bold text-white">Playlistfy</span>
+      <span className="font-bold text-white  border rounded-lg p-2">Playlistfy</span>
       <svg
         width="24"
         height="24"

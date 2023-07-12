@@ -11,11 +11,8 @@ function PlaylistMain() {
     setplayListId,
     playListDataForMain,
     setplayListDataForMain,
-    editedName,
-    setEditedName,
-    nameEdit,
-    setNameEdit,
-    setplayListData
+    handleEditPlaylist,
+    selectedVideo,
   } = useContext(PlaylistContext);
   useEffect(() => {
     if (playListId !== null) {
@@ -34,17 +31,35 @@ function PlaylistMain() {
     }
   }, [playListId, playListStack, setplayListDataForMain, setplayListId]);
 
-  
+  useEffect(() => console.log(playListStack), [playListStack]);
+  const [nameEdit, setNameEdit] = useState(false);
+  const [editedName, setEditedName] = useState('');
   const [descEdit, setDescEdit] = useState(false);
   const [editedDesc, setEditedDesc] = useState("");
 
+
+  const handleNameEdit = () => {
+    const newName = editedName.trim();
+    if (newName !== '') {
+      handleEditPlaylist(playListId, newName, 'name');
+      setNameEdit(false);
+    }
+  };
+  
+  const handleDescEdit = () => {
+    const newDesc = editedDesc.trim();
+    if (newDesc !== '') {
+      handleEditPlaylist(playListId, newDesc, 'desc');
+      setDescEdit(false);
+    }
+  };
   return (
-    <div className="pt-10 pr-20 z-0 grid grid-cols-video w-full">
+    <div className="pt-10 pr-20 z-0 grid grid-cols-video w-full ">
       <div>
-        <div>
+        <div className={`border pl-5 pt-4 w-5/5 rounded-lg ${playListDataForMain ? 'bg-[#706be4]' : null} h-32 flex flex-col`}>
           {playListStack.length === 0 ? (
             <span className="text-white text-3xl font-medium">
-              No playlists available
+              No playlists available !
             </span>
           ) : playListDataForMain ? (
             <div className="flex justify-between w-3/6 items-center mb-5">
@@ -59,14 +74,7 @@ function PlaylistMain() {
                   />
                   <button
                     className="h-8 bg-pink w-9 rounded-lg text-white text-sm font-semibold"
-                    onClick={() => {
-                      setNameEdit(!nameEdit);
-                      setplayListData((prev) => ({
-                        ...prev,
-                        name: editedName
-                      }));
-                    }}
-                    
+                    onClick={handleNameEdit}
                   >
                     edit
                   </button>
@@ -74,10 +82,9 @@ function PlaylistMain() {
               ) : (
                 <div className="flex justify-between  w-3/4">
                   <span className="text-white text-3xl font-medium">
-                    {/* {editedName.length === 0
+                    {editedName.length === 0
                       ? playListDataForMain?.name
-                      : editedName} */}
-                      {playListDataForMain?.name}
+                      : editedName}
                   </span>
                   <svg
                     width="16"
@@ -95,7 +102,9 @@ function PlaylistMain() {
               )}
             </div>
           ) : (
-            "No selected playlist"
+            <span className="text-white text-3xl font-medium">
+            No Playlist selected
+            </span>
           )}
 
           {playListDataForMain ? (
@@ -104,14 +113,14 @@ function PlaylistMain() {
                 <div className="flex justify-between  w-3/4">
                   <input
                     type="text"
-                    name="name"
+                    name="desc"
                     placeholder="edit the description"
                     onChange={(e) => setEditedDesc(e.target.value)}
                     className="outline-0 bg-primary h-8  border rounded-lg caret-custom pl-2 pb-1 text-white placeholder:text-white placeholder:opacity-30"
                   />
                   <button
                     className="h-8 bg-pink w-9 rounded-lg text-white text-sm font-semibold"
-                    onClick={() => setDescEdit(!descEdit)}
+                     onClick={handleDescEdit}
                   >
                     edit
                   </button>
@@ -142,11 +151,12 @@ function PlaylistMain() {
             ""
           )}
         </div>
-        <div>
-          {playListDataForMain ? (
+        <div className="pt-10">
+          {selectedVideo ? (
             <ReactPlayer
-              url="https://twitter.com/i/status/1677275029640478721"
+              url={selectedVideo}
               controls={true}
+              au
             />
           ) : null}
         </div>

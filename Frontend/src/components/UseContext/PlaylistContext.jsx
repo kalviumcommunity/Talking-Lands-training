@@ -17,10 +17,25 @@ function PlaylistContextProvider({ children }) {
   const [videoLink, setVideoLink] = useState("");
   const [videoLinkAdded, setvideoLinkAdded] = useState("");
   const [isModalsClicked, setisModalsClicked] = useState(false);
-  const [nameEdit, setNameEdit] = useState(false);
-  // const [descEdit, setDescEdit] = useState(false);
-  // const [editedName, setEditedName] = useState(""|| playListData.name);
-  // const [editedDesc, setEditedDesc] = useState("");
+  const [selectedVideo, isselectedVideo] = useState("");
+
+  const handleEditPlaylist = (playlistId, newText, editItem) => {
+    setplayListStack((prevStack) => {
+      const updatedStack = prevStack.map((playlist) => {
+        if (playlist.id === playlistId) {
+          return {
+            ...playlist,
+            data: {
+              ...playlist.data,
+              [editItem]: newText,
+            },
+          };
+        }
+        return playlist;
+      });
+      return updatedStack;
+    });
+  };
 
   return (
     <PlaylistContext.Provider
@@ -45,10 +60,9 @@ function PlaylistContextProvider({ children }) {
         setVideoLink,
         videoLinkAdded,
         setvideoLinkAdded,
-        // editedName,
-        // setEditedName,
-        // nameEdit,
-        // setNameEdit,
+        handleEditPlaylist,
+        selectedVideo,
+        isselectedVideo,
       }}
     >
       {children}

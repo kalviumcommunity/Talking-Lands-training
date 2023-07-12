@@ -61,7 +61,7 @@ function VideoLinkModal() {
               className="h-[48px] pl-4 bg-primary border-y-graywhite border-y border-l	border-l-graywhite w-[480px] outline-none caret-custom text-white"
               onChange={(e) => setVideoLink(e.target.value)}
             />
-            <button className="h-[48px] w-[72px] bg-graywhite text-sm font-medium rounded-r-sm" onClick={addVideoToPlayList}>
+            <button className="h-[48px] w-[72px] bg-graywhite text-md text-black font-bold rounded-r-sm" onClick={addVideoToPlayList}>
               Add
             </button>
           </div>
